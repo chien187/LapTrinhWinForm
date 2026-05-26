@@ -12,11 +12,11 @@ using System.Data.SqlClient; // BẮT BUỘC PHẢI CÓ DÒNG NÀY ĐỂ KẾT N
 
 namespace WindowsFormsApp2
 {
-    public partial class Form1 : Form
+    public partial class DangNhap : Form
     {
         // CHUỖI KẾT NỐI DB (Biến toàn cục)
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\QuanLySanBong.mdf;Integrated Security=True";
-        public Form1()
+        public DangNhap()
         {
             InitializeComponent();
         }

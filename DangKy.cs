@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
-    public partial class Form2 : Form
+    public partial class DangKy : Form
     {
         // Chuỗi kết nối SQL Server
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\QuanLySanBong.mdf;Integrated Security=True";
-        public Form2()
+        public DangKy()
         {
             InitializeComponent();
             SetupUI(); // BẮT BUỘC PHẢI GỌI HÀM NÀY Ở ĐÂY ĐỂ GIAO DIỆN HOẠT ĐỘNG
@@ -127,7 +127,7 @@ namespace WindowsFormsApp2
         // ==========================================
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Form form1 = new Form1();
+            Form form1 = new DangNhap();
             form1.StartPosition = FormStartPosition.CenterScreen; // Ép Form Đăng ký căn giữa
             this.Hide();
             form1.ShowDialog();
@@ -153,7 +153,7 @@ namespace WindowsFormsApp2
 
         private void llbAdminLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Form f = new Form3();
+            Form f = new DangKyAdmin();
             
             this.Hide();           // 1. Tạm thời ẩn (tàng hình) Form Đăng nhập sinh viên đi
             f.ShowDialog(); // 2. Mở Form Đăng nhập Admin lên đè lên trên (Code sẽ đứng chờ ở đây)

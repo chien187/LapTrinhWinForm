@@ -3,15 +3,15 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
-    public partial class Form3 : Form
+    public partial class DangKyAdmin : Form
     {
-        public Form3()
+        public DangKyAdmin()
         {
             InitializeComponent();
         }
 
         // HÀM LÚC MỚI MỞ FORM: Tự động ẩn mật khẩu
-        private void Form3_Load(object sender, EventArgs e)
+        private void DangKyAdmin_Load(object sender, EventArgs e)
         {
             txtAdminMatKhau.PasswordChar = '*';
         }
