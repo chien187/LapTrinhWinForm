@@ -51,6 +51,16 @@ namespace WindowsFormsApp2
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            Form DV = new DichVu();
+            DV.StartPosition = FormStartPosition.CenterScreen; // Ép Form Đăng ký căn giữa
+            this.Hide();
+            DV.ShowDialog();
+            this.Show();
+        }
+
         // =========================================================
         // KHU VỰC CHỜ GHÉP CODE (BẠN MỞ COMMENT KHI ĐÃ CÓ CÁC FORM)
         // =========================================================

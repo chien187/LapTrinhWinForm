@@ -40,11 +40,11 @@
             // panelContent
             // 
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContent.Location = new System.Drawing.Point(339, 0);
+            this.panelContent.Location = new System.Drawing.Point(254, 0);
+            this.panelContent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(786, 646);
+            this.panelContent.Size = new System.Drawing.Size(590, 525);
             this.panelContent.TabIndex = 1;
-          
             // 
             // panelMenu
             // 
@@ -55,52 +55,56 @@
             this.panelMenu.Controls.Add(this.button1);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(339, 646);
+            this.panelMenu.Size = new System.Drawing.Size(254, 525);
             this.panelMenu.TabIndex = 0;
             // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.SpringGreen;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(67, 467);
+            this.button4.Location = new System.Drawing.Point(50, 379);
+            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(135, 58);
+            this.button4.Size = new System.Drawing.Size(101, 47);
             this.button4.TabIndex = 3;
             this.button4.Text = "Quản lý Sân";
             this.button4.UseVisualStyleBackColor = false;
-          
             // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.SpringGreen;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(67, 324);
+            this.button3.Location = new System.Drawing.Point(50, 263);
+            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(135, 56);
+            this.button3.Size = new System.Drawing.Size(101, 46);
             this.button3.TabIndex = 2;
             this.button3.Text = "thêm dịch vụ ";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.SpringGreen;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(67, 196);
+            this.button2.Location = new System.Drawing.Point(50, 159);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 54);
+            this.button2.Size = new System.Drawing.Size(101, 44);
             this.button2.TabIndex = 1;
             this.button2.Text = "Đặt sân ";
             this.button2.UseVisualStyleBackColor = false;
-       
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.SpringGreen;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(67, 64);
+            this.button1.Location = new System.Drawing.Point(50, 52);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 59);
+            this.button1.Size = new System.Drawing.Size(101, 48);
             this.button1.TabIndex = 0;
             this.button1.Text = "Trang chủ ";
             this.button1.UseVisualStyleBackColor = false;
@@ -108,11 +112,12 @@
             // 
             // frmTrangChu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1125, 646);
+            this.ClientSize = new System.Drawing.Size(844, 525);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelMenu);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "frmTrangChu";
             this.Text = "frmTrangChu";
             this.panelMenu.ResumeLayout(false);
