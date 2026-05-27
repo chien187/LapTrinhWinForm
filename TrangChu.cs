@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
-    public partial class frmTrangChu : Form
+    public partial class TrangChu : Form
     {
         // Chuỗi kết nối động dùng chung cho toàn dự án
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\QuanLySanBong.mdf;Integrated Security=True";
@@ -11,7 +11,7 @@ namespace WindowsFormsApp2
         // Biến lưu trữ Form đang được mở hiện tại (để biết đường mà tắt nó đi)
         private Form activeForm = null;
 
-        public frmTrangChu()
+        public TrangChu()
         {
             InitializeComponent();
         }
@@ -59,6 +59,22 @@ namespace WindowsFormsApp2
             this.Hide();
             DV.ShowDialog();
             this.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Form f1 = new TrangChu();
+            //this.Hide();         // Ẩn trang chủ đi cho thoáng
+            //f1.ShowDialog();    // Mở trang đặt sân lên
+            //this.Show();         // Khi người dùng tắt trang đặt sân, Trang chủ tự mọc lại
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //Form qly = new TrangChu();
+            //this.Hide();         // Ẩn trang chủ đi cho thoáng
+            //f1.ShowDialog();    // Mở trang đặt sân lên
+            //this.Show();         // Khi người dùng tắt trang đặt sân, Trang chủ tự mọc lại
         }
 
         // =========================================================

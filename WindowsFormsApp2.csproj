@@ -54,6 +54,7 @@
     <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>packages\Guna.UI2.WinForms.2.0.4.7\lib\net472\Guna.UI2.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
@@ -72,17 +73,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DangNhap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DangNhap.Designer.cs">
-      <DependentUpon>DangNhap.cs</DependentUpon>
-    </Compile>
     <Compile Include="DangKy.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DangKy.Designer.cs">
       <DependentUpon>DangKy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DangNhap.Designer.cs">
+      <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="DangKyAdmin.cs">
       <SubType>Form</SubType>
@@ -96,19 +97,43 @@
     <Compile Include="DichVu.Designer.cs">
       <DependentUpon>DichVu.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTrangChu.cs">
+    <Compile Include="DSKH.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTrangChu.Designer.cs">
-      <DependentUpon>frmTrangChu.cs</DependentUpon>
+    <Compile Include="DSKH.Designer.cs">
+      <DependentUpon>DSKH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThemMoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThemMoi.Designer.cs">
+      <DependentUpon>ThemMoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QLKHO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QLKHO.Designer.cs">
+      <DependentUpon>QLKHO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TKKH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TKKH.Designer.cs">
+      <DependentUpon>TKKH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrangChu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrangChu.Designer.cs">
+      <DependentUpon>TrangChu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DangNhap.resx">
-      <DependentUpon>DangNhap.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DangKy.resx">
       <DependentUpon>DangKy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DangNhap.resx">
+      <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DangKyAdmin.resx">
       <DependentUpon>DangKyAdmin.cs</DependentUpon>
@@ -116,8 +141,20 @@
     <EmbeddedResource Include="DichVu.resx">
       <DependentUpon>DichVu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTrangChu.resx">
-      <DependentUpon>frmTrangChu.cs</DependentUpon>
+    <EmbeddedResource Include="DSKH.resx">
+      <DependentUpon>DSKH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThemMoi.resx">
+      <DependentUpon>ThemMoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QLKHO.resx">
+      <DependentUpon>QLKHO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TKKH.resx">
+      <DependentUpon>TKKH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrangChu.resx">
+      <DependentUpon>TrangChu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

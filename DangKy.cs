@@ -1,164 +1,131 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient; // BẮT BUỘC PHẢI CÓ DÒNG NÀY ĐỂ KẾT NỐI SQL
 
 namespace WindowsFormsApp2
 {
     public partial class DangKy : Form
     {
-        // Chuỗi kết nối SQL Server
+        // CHUỖI KẾT NỐI DB (Biến toàn cục)
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\QuanLySanBong.mdf;Integrated Security=True";
         public DangKy()
         {
             InitializeComponent();
-            SetupUI(); // BẮT BUỘC PHẢI GỌI HÀM NÀY Ở ĐÂY ĐỂ GIAO DIỆN HOẠT ĐỘNG
         }
 
-        // ==========================================
-        // CÀI ĐẶT GIAO DIỆN (MÀU SẮC, TOOLTIP)
-        // ==========================================
-        private void SetupUI()
+        private void Form1_Load(object sender, EventArgs e)
         {
-            ToolTip tooltip = new ToolTip();
-            tooltip.SetToolTip(txtEmail, "Nhập email do nhà trường cấp (@tlu.edu.vn)");
-            tooltip.SetToolTip(txtMatKhau, "Nhập mật khẩu sinh viên");
-
-          
-            // Mặc định ẩn mật khẩu
+            // Mặc định ẩn mật khẩu khi mới mở form lên
             txtMatKhau.PasswordChar = '*';
-           
-
-            // Đổi màu khi nhấp chuột
-            txtEmail.GotFocus += TextBox_GotFocus;
-            txtEmail.LostFocus += TextBox_LostFocus;
-            txtMatKhau.GotFocus += TextBox_GotFocus;
-            txtMatKhau.LostFocus += TextBox_LostFocus;
-           
+            txtNhapLaiMatKhau.PasswordChar = '*';
         }
 
-        // HÀM KHI CLICK CHUỘT VÀO Ô NHẬP
-        private void TextBox_GotFocus(object sender, EventArgs e)
+        // CHỈ DÙNG ĐÚNG 1 HÀM CHO NÚT ĐĂNG KÝ
+        private void btnDangKy_Click(object sender, EventArgs e)
         {
-            // Ép kiểu về đúng Guna2TextBox
-            var txt = sender as Guna.UI2.WinForms.Guna2TextBox;
-
-            // Kiểm tra chắc chắn txt không bị rỗng rồi mới đổi màu
-            if (txt != null)
-            {
-                txt.FillColor = Color.LightCyan; // Guna UI dùng FillColor
-            }
-        }
-
-        // HÀM KHI CHUYỂN CHUỘT SANG Ô KHÁC
-        private void TextBox_LostFocus(object sender, EventArgs e)
-        {
-            var txt = sender as Guna.UI2.WinForms.Guna2TextBox;
-
-            if (txt != null)
-            {
-                txt.FillColor = Color.White;
-            }
-        }
-
-        // ==========================================
-        // PHẦN 1: ĐĂNG NHẬP SINH VIÊN
-        // ==========================================
-        private void btnDangNhap_Click(object sender, EventArgs e)
-        {
+            string sdt = txtSdt.Text.Trim();
             string email = txtEmail.Text.Trim();
+            string hoTen = txtHoTen.Text.Trim();
             string matKhau = txtMatKhau.Text.Trim();
+            string nhapLaiMK = txtNhapLaiMatKhau.Text.Trim();
 
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(matKhau))
+            // 1. Kiểm tra rỗng
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(hoTen) ||
+                string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(nhapLaiMK))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập đầy đủ các thông tin bắt buộc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // 2. Kiểm tra định dạng Email
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(email, emailPattern))
+            {
+                MessageBox.Show("Email không đúng định dạng (VD: abc@gmail.com).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEmail.Focus();
+                return;
+            }
+
+            // 3. Kiểm tra Mật khẩu khớp
+            if (matKhau != nhapLaiMK)
+            {
+                MessageBox.Show("Mật khẩu nhập lại không khớp!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNhapLaiMatKhau.Focus();
+                return;
+            }
+
+            // 4. LƯU VÀO CSDL THỰC TẾ
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
-                    conn.Open();
-                    string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email AND MatKhau = @MatKhau";
+                    conn.Open(); // Mở cổng kết nối
+
+                    // Lệnh thêm dữ liệu vào bảng Users (Nhớ đảm bảo trong DB bạn có bảng này nhé)
+                    string query = "INSERT INTO Users (SoDienThoai, Email, HoTen, MatKhau) VALUES (@Sdt, @Email, @Hoten, @Mk)";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@Sdt", sdt);
                         cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@MatKhau", matKhau);
+                        cmd.Parameters.AddWithValue("@Hoten", hoTen);
+                        cmd.Parameters.AddWithValue("@Mk", matKhau);
 
-                        int result = (int)cmd.ExecuteScalar();
-                        if (result > 0)
-                        {
-                            MessageBox.Show("Đăng nhập Sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtMatKhau.Clear();
-                            txtEmail.Clear();
-                            Form f1 = new frmTrangChu();
-                            this.Hide();         // Ẩn trang chủ đi cho thoáng
-                            f1.ShowDialog();    // Mở trang đặt sân lên
-                            this.Show();         // Khi người dùng tắt trang đặt sân, Trang chủ tự mọc lại
+                        cmd.ExecuteNonQuery(); // Lệnh này mới là lệnh nhét chữ vào Database
+                    }
 
-                        }
-                        else
-                        {
-                            MessageBox.Show("Email hoặc mật khẩu không chính xác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            txtMatKhau.Clear();
-                            txtEmail.SelectAll();
-                            txtEmail.Focus();
-                        }
+                    // 5. BÁO THÀNH CÔNG VÀ CHUYỂN FORM
+                    MessageBox.Show("Đăng ký tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);                 
+                   
+                   this.Close();
+                }
+                catch (SqlException sqlEx)
+                {
+                    // Lỗi 2627 là mã lỗi của SQL khi bị trùng Email (Do cột Email đặt là UNIQUE)
+                    if (sqlEx.Number == 2627)
+                    {
+                        MessageBox.Show("Email này đã tồn tại trong hệ thống. Vui lòng dùng email khác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi cơ sở dữ liệu: " + sqlEx.Message, "Lỗi");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message, "Lỗi Hệ Thống");
+                    MessageBox.Show("Lỗi hệ thống: " + ex.Message, "Lỗi");
                 }
             }
+            
         }
 
-        private void chkHienThiMK_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkHienThiMK.Checked)
-                txtMatKhau.PasswordChar = '\0';
-            else
-                txtMatKhau.PasswordChar = '*';
-        }
-
-        // ==========================================
-        // PHẦN 2: CHUYỂN SANG FORM ĐĂNG KÝ
-        // ==========================================
+        // KHI ẤN VÀO LINK "ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP"
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Form form1 = new DangNhap();
-            form1.StartPosition = FormStartPosition.CenterScreen; // Ép Form Đăng ký căn giữa
-            this.Hide();
-            form1.ShowDialog();
-            this.Show();
+            this.Close(); // Đóng form Đăng ký để về form Đăng nhập
         }
 
-        // ==========================================
-        // PHẦN 3: ĐĂNG NHẬP ADMIN (PANEL)
-        // ==========================================
-       
-
-        // ==========================================
-        // PHẦN 4: NÚT THOÁT
-        // ==========================================
-        private void btnThoat_Click(object sender, EventArgs e)
+        // CHECKBOX HIỆN MẬT KHẨU
+        private void chkHienThiMK_CheckedChanged_1(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát ứng dụng?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (chkHienThiMK.Checked)
             {
-                Application.Exit();
+                txtMatKhau.PasswordChar = '\0';
+                txtNhapLaiMatKhau.PasswordChar = '\0';
             }
-        }
-
-        private void llbAdminLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Form f = new DangKyAdmin();
-            
-            this.Hide();           // 1. Tạm thời ẩn (tàng hình) Form Đăng nhập sinh viên đi
-            f.ShowDialog(); // 2. Mở Form Đăng nhập Admin lên đè lên trên (Code sẽ đứng chờ ở đây)
-
-            this.Show();           // 3. Khi bạn ấn nút "Thoát" ở Form Admin (gọi lệnh this.Close), dòng này sẽ chạy để hiện lại Form Sinh viên!
+            else
+            {
+                txtMatKhau.PasswordChar = '*';
+                txtNhapLaiMatKhau.PasswordChar = '*';
+            }
         }
     }
 }
